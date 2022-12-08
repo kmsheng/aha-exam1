@@ -4,6 +4,7 @@
 
 :root {
   --main-bg-color: #181818;
+  --menu-bg-color: #242424;
 }
 
 @layer components {
@@ -26,6 +27,9 @@
   }
   .input::placeholder {
     color: rgba(255, 255, 255, .3);
+  }
+  .bg-menu {
+    background: var(--menu-bg-color);
   }
 }
 
