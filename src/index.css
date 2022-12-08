@@ -2,14 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --main-bg-color: #181818;
+}
+
 @layer components {
   .input {
     @apply text-black px-3;
+    border-radius: 8px;
     border: 3px solid rgba(255, 255, 255, 0.5);
-    background: #181818;
+    background: var(--main-bg-color);
     width: 335px;
     height: 58px;
     color: #fff;
+    outline: 0;
+    transition: .3s all;
+  }
+  .input:hover {
+    border-color: #fff;
+  }
+  .input:focus {
+    border-color: #00a6ff;
+  }
+  .input::placeholder {
+    color: rgba(255, 255, 255, .3);
   }
 }
 
