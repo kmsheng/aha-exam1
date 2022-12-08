@@ -6,6 +6,16 @@ export enum PasswordRules {
   LONGER_THAN_EIGHT_CHARS
 }
 
+export const getPasswordHints = (password: string) => {
+  return {
+    UPPERCASE_REQUIRED: /[A-Z]/.test(password),
+    LOWERCASE_REQUIRED: /[a-z]/.test(password),
+    NUMNER_REQUIRED: /\d/.test(password),
+    SPECIAL_CHAR_REQUIRED: /[^a-zA-Z ]/.test(password),
+    LONGER_THAN_EIGHT_CHARS: password.length > 8
+  }
+}
+
 export type RuleItem = {
   text: string;
   type: PasswordRules
