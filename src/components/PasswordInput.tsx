@@ -1,6 +1,10 @@
+import './PasswordInput.css';
+
 function PasswordInput() {
   return (
-    <input type="text" className="input" />
+    <div className="password-input">
+      <input type="text" className="input" placeholder="password" />
+    </div>
   );
 }
 
