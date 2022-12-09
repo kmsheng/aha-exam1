@@ -5,9 +5,10 @@ import IconHollowCheckmark from '@/icons/IconHollowCheckmark';
 function renderItems(items: RuleItem[], validations: PasswordValidations) {
   return items.map((item: RuleItem) => {
     return (
-      <div className="flex items-center px-4 py-3">
+      <div className="flex items-center px-4 py-[8px]">
         { validations[item.type] ?
-          <IconSolidCheckmark className="w-[18px] h-[18px]" /> : <IconHollowCheckmark className="w-[18px] h-[18px]" /> }
+          <IconSolidCheckmark className="w-[20px] h-[20px]" /> :
+          <IconHollowCheckmark className="w-[20px] h-[20px]" /> }
         <div className="ml-3 text-sm">{item.text}</div>
       </div>
     );
@@ -21,7 +22,7 @@ interface PasswordHintMenuProps {
 
 function PasswordHintMenu({ className, validations }: PasswordHintMenuProps) {
   return (
-    <div className={className + ' bg-menu rounded-lg py-2'}>{renderItems(ruleItems, validations)}</div>
+    <div className={className + ' bg-menu rounded-lg py-[8px]'}>{renderItems(ruleItems, validations)}</div>
   );
 }
 

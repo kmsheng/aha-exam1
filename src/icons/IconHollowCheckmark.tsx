@@ -2,14 +2,13 @@ interface IconCheckedProps {
   className?: string
 }
 
-function IconChecked({ className }: IconCheckedProps) {
+function IconHollowCheckmark({ className }: IconCheckedProps) {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="12" r="9" stroke="white" strokeWidth="2"/>
-      <path d="M7.91016 11.9997L10.6374 15.1816L16.5465 9.27246" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <svg className={className} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="10" cy="10" r="9" stroke="#565656" strokeWidth="2"/>
+      <path d="M5.90918 9.99966L8.63645 13.1815L14.5455 7.27238" stroke="#565656" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
-
   )
 }
 
-export default IconChecked
+export default IconHollowCheckmark

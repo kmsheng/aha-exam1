@@ -10,7 +10,7 @@ function PasswordInput({ value, onChange }: PasswordInputProps) {
   return (
     <div className="password-input">
       <input
-        type="text"
+        type="password"
         className="input"
         placeholder="password"
         value={value}
