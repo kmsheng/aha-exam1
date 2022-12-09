@@ -5,7 +5,7 @@ import IconHollowCheckmark from '@/icons/IconHollowCheckmark';
 function renderItems(items: PasswordRuleItem[], validations: PasswordValidationResult) {
   return items.map((item: PasswordRuleItem) => {
     return (
-      <div className="flex items-center px-4 py-[8px]">
+      <div className="flex items-center px-4 py-[8px]" key={item.type}>
         { validations[item.type] ?
           <IconSolidCheckmark className="w-[20px] h-[20px]" /> :
           <IconHollowCheckmark className="w-[20px] h-[20px]" /> }
