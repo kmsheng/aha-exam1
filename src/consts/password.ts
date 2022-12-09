@@ -6,7 +6,7 @@ export enum PasswordRules {
   LONGER_THAN_EIGHT_CHARS
 }
 
-export type PasswordValidations = {
+export type PasswordValidationResult = {
   [PasswordRules.UPPERCASE_REQUIRED]: boolean,
   [PasswordRules.LOWERCASE_REQUIRED]: boolean,
   [PasswordRules.NUMNER_REQUIRED]: boolean,
