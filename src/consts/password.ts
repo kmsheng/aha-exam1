@@ -24,12 +24,12 @@ export const getPasswordHints = (password: string) => {
   }
 }
 
-export type RuleItem = {
+export type PasswordRuleItem = {
   text: string;
   type: PasswordRule
 }
 
-export const ruleItems: RuleItem[] = [
+export const ruleItems: PasswordRuleItem[] = [
   {
     type: PasswordRule.UPPERCASE_REQUIRED,
     text: 'Have at least one uppercase letter'

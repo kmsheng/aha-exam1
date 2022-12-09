@@ -1,9 +1,9 @@
-import { ruleItems, RuleItem, PasswordValidationResult } from '@/consts/password'
+import { ruleItems, PasswordRuleItem, PasswordValidationResult } from '@/consts/password'
 import IconSolidCheckmark from '@/icons/IconSolidCheckmark';
 import IconHollowCheckmark from '@/icons/IconHollowCheckmark';
 
-function renderItems(items: RuleItem[], validations: PasswordValidationResult) {
-  return items.map((item: RuleItem) => {
+function renderItems(items: PasswordRuleItem[], validations: PasswordValidationResult) {
+  return items.map((item: PasswordRuleItem) => {
     return (
       <div className="flex items-center px-4 py-[8px]">
         { validations[item.type] ?
