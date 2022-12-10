@@ -20,9 +20,9 @@ export const getPasswordHints = (password: string) => {
     [PasswordRule.LOWERCASE_REQUIRED]: /[a-z]/.test(password),
     [PasswordRule.NUMNER_REQUIRED]: /\d/.test(password),
     [PasswordRule.SPECIAL_CHAR_REQUIRED]: /[^a-zA-Z\d ]/.test(password),
-    [PasswordRule.LONGER_THAN_EIGHT_CHARS]: password.length > 8
-  }
-}
+    [PasswordRule.LONGER_THAN_EIGHT_CHARS]: password.length > 8,
+  };
+};
 
 export type PasswordRuleItem = {
   text: string;
@@ -32,22 +32,22 @@ export type PasswordRuleItem = {
 export const ruleItems: PasswordRuleItem[] = [
   {
     type: PasswordRule.UPPERCASE_REQUIRED,
-    text: 'Have at least one uppercase letter'
+    text: 'Have at least one uppercase letter',
   },
   {
     type: PasswordRule.LOWERCASE_REQUIRED,
-    text: 'Have at least one lowercase letter'
+    text: 'Have at least one lowercase letter',
   },
   {
     type: PasswordRule.NUMNER_REQUIRED,
-    text: 'Have at least one number'
+    text: 'Have at least one number',
   },
   {
     type: PasswordRule.SPECIAL_CHAR_REQUIRED,
-    text: 'Have at least one special character (!@#$...etc)'
+    text: 'Have at least one special character (!@#$...etc)',
   },
   {
     type: PasswordRule.LONGER_THAN_EIGHT_CHARS,
-    text: 'Longer than 8 characters'
+    text: 'Longer than 8 characters',
   },
-]
+];

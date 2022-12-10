@@ -1,7 +1,7 @@
-import { ruleItems, PasswordRuleItem, PasswordValidationResult } from '@/consts/password'
-import IconSolidCheckmark from '@/icons/IconSolidCheckmark'
-import IconHollowCheckmark from '@/icons/IconHollowCheckmark'
-import './PasswordHintMenu.css'
+import {ruleItems, PasswordRuleItem, PasswordValidationResult} from '@/consts/password';
+import IconSolidCheckmark from '@/icons/IconSolidCheckmark';
+import IconHollowCheckmark from '@/icons/IconHollowCheckmark';
+import './PasswordHintMenu.css';
 
 function renderItems(items: PasswordRuleItem[], validations: PasswordValidationResult) {
   return items.map((item: PasswordRuleItem) => {
@@ -12,8 +12,8 @@ function renderItems(items: PasswordRuleItem[], validations: PasswordValidationR
           <IconHollowCheckmark className="w-[20px] h-[20px]" /> }
         <div className="ml-3 text-sm">{item.text}</div>
       </div>
-    )
-  })
+    );
+  });
 }
 
 interface PasswordHintMenuProps {
@@ -21,10 +21,10 @@ interface PasswordHintMenuProps {
   validations: PasswordValidationResult,
 }
 
-function PasswordHintMenu({ className, validations }: PasswordHintMenuProps) {
+function PasswordHintMenu({className, validations}: PasswordHintMenuProps) {
   return (
     <div className={className + 'password-hint-menu bg-menu rounded-lg py-[8px]'}>{renderItems(ruleItems, validations)}</div>
-  )
+  );
 }
 
-export default PasswordHintMenu
+export default PasswordHintMenu;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import './PasswordInput.css';
 
 type PasswordInputProps = {
@@ -6,7 +6,7 @@ type PasswordInputProps = {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-function PasswordInput({ value, onChange }: PasswordInputProps) {
+function PasswordInput({value, onChange}: PasswordInputProps) {
   return (
     <div className="password-input">
       <input
