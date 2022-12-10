@@ -1,8 +1,7 @@
 import classNames from 'classnames'
-import chunk from 'lodash.chunk'
 import range from 'lodash.range'
 import { useState } from 'react'
-import { addDays, addMonths, subMonths, getDay, format, getDaysInMonth,
+import { addDays, addMonths, subMonths, getDay, format,
   startOfMonth, endOfMonth, previousSunday, subYears, addYears, setYear } from 'date-fns'
 import IconChevronLeft from '@/icons/IconChevronLeft'
 import IconChevronRight from '@/icons/IconChevronRight'
@@ -25,17 +24,15 @@ type Context = {
 
 function renderYearCells(context: Context) {
   const { calendarDate, setCalendarDate, selectedDate, setSelectedDate, setMode } = context
-  const startDate = subYears(calendarDate, 1)
   const dates = range(20).map(i => addYears(calendarDate, i - 1))
-  const currentYear = selectedDate.getFullYear()
-
+  const selectedYear = selectedDate.getFullYear()
   const renderYearCells = () => {
     return dates.map((d, i) => {
       const fixedClasses = ['text-center', 'py-[1px]',
         'hover:bg-white', 'hover:text-[#080808]', 'transition-colors',
         'duration-300', 'cursor-pointer'
       ]
-      const isSameYear = d.getFullYear() === currentYear
+      const isSameYear = d.getFullYear() === selectedYear
       const className = classNames(...fixedClasses, {
         'text-white': isSameYear,
         'bg-[#00a3ff]': isSameYear
