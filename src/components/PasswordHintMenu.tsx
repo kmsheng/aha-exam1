@@ -1,9 +1,11 @@
-import {ruleItems, PasswordRuleItem, PasswordValidationResult} from '@/consts/password';
+import {ruleItems, PasswordRuleItem,
+  PasswordValidationResult} from '@/consts/password';
 import IconSolidCheckmark from '@/icons/IconSolidCheckmark';
 import IconHollowCheckmark from '@/icons/IconHollowCheckmark';
 import './PasswordHintMenu.css';
 
-function renderItems(items: PasswordRuleItem[], validations: PasswordValidationResult) {
+function renderItems(items: PasswordRuleItem[],
+    validations: PasswordValidationResult) {
   return items.map((item: PasswordRuleItem) => {
     return (
       <div className="flex items-center px-4 py-[8px]" key={item.type}>
@@ -23,7 +25,8 @@ interface PasswordHintMenuProps {
 
 function PasswordHintMenu({className, validations}: PasswordHintMenuProps) {
   return (
-    <div className={className + 'password-hint-menu bg-menu rounded-lg py-[8px]'}>{renderItems(ruleItems, validations)}</div>
+    <div className={className + 'password-hint-menu ' +
+      'bg-menu rounded-lg py-[8px]'}>{renderItems(ruleItems, validations)}</div>
   );
 }
 

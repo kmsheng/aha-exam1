@@ -17,10 +17,10 @@ const eq = (d1: Date, d2: Date) => {
 
 type Context = {
   calendarDate: Date,
-  setCalendarDate: (date: Date) => void,
+  setCalendarDate: React.Dispatch<React.SetStateAction<Date>>,
   selectedDate: Date,
-  setSelectedDate: (date: Date) => void,
-  setMode: (mode: string) => void
+  setSelectedDate: React.Dispatch<React.SetStateAction<Date>>,
+  setMode: React.Dispatch<React.SetStateAction<Mode>>
 }
 
 function renderYearCells(context: Context) {
