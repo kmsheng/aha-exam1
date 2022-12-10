@@ -6,6 +6,7 @@ import {addDays, addMonths, subMonths, getDay, format,
   addYears, setYear} from 'date-fns';
 import IconChevronLeft from '@/icons/IconChevronLeft';
 import IconChevronRight from '@/icons/IconChevronRight';
+import '@/components/CalendarMenu.css';
 
 enum Mode { DAY_MODE, YEAR_MODE }
 
@@ -142,7 +143,8 @@ function CalendarMenu({className = ''}: CalendarMenuProps) {
     }
   };
   const wrapperClass = classNames(className,
-      'font-["Inter"] w-[320px] min-h-[469px] py-[16px] flex flex-col');
+      'calendar-menu bg-[#1b1b1b] font-["Inter"] w-[320px]' +
+      ' min-h-[469px] py-[16px] flex flex-col');
   const arrowBtnClass = 'w-[48px] h-[48px] flex justify-center items-center';
   const context = {
     calendarDate,
@@ -156,9 +158,11 @@ function CalendarMenu({className = ''}: CalendarMenuProps) {
       renderYearCells(context);
   return (
     <div className={wrapperClass}>
-      <div>Text</div>
-      <div className="font-bold text-[32px]">
-        {format(calendarDate, 'MMM, yyyy')}
+      <div className="px-[24px]">
+        <div>Text</div>
+        <div className="font-bold text-[32px]">
+          {format(calendarDate, 'MMM, yyyy')}
+        </div>
       </div>
       <div className="flex justify-between items-center py-3 w-full">
         <button className={arrowBtnClass} onClick={toPrev}>
