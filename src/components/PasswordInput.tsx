@@ -2,6 +2,7 @@ import {useState, useRef} from 'react';
 import PasswordHintMenu from '@/components/PasswordHintMenu';
 import Modal from '@/components/Modal';
 import {PasswordValidationResult} from '@/consts/password';
+import useFloatingDom from '@/composables/useFloatingDom';
 import './PasswordInput.css';
 
 type PasswordInputProps = {
@@ -16,16 +17,7 @@ function PasswordInput({value, validations, onChange}: PasswordInputProps) {
   const handleFocus = () => setActive(true);
   const handleBlur = () => setActive(false);
   const inputEl = useRef(null);
-  let style = {};
-  if (active && inputEl.current) {
-    const el = inputEl.current as HTMLElement;
-    const {top, left} = el.getBoundingClientRect();
-    style = {
-      top: (el.offsetHeight + top) + 'px',
-      left: left + 'px',
-      marginTop: '1rem',
-    };
-  }
+  const style = useFloatingDom(inputEl.current, active)
 
   return (
     <div className="password-input">
