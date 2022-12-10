@@ -17,12 +17,21 @@ const eq = (d1: Date, d2: Date) => {
     (d1.getDate() === d2.getDate())
 }
 
-function renderYearCells(calendarDate: Date, selectedDate: Date, setSelectedDate: Function) {
+type Context = {
+  calendarDate: Date,
+  setCalendarDate: Function,
+  selectedDate: Date,
+  setSelectedDate: Function,
+  setMode: Function
+}
+
+function renderYearCells(context: Context) {
+  const { calendarDate, setCalendarDate, selectedDate, setSelectedDate, setMode } = context
   const startDate = subYears(calendarDate, 1)
   const dates = range(20).map(i => addYears(calendarDate, i - 1))
-  const rows = chunk(dates, 4)
   const currentYear = selectedDate.getFullYear()
-  const renderTds = (dates: Date[]) => {
+
+  const renderYearCells = () => {
     return dates.map((d, i) => {
       const fixedClasses = ['text-center', 'py-[1px]',
         'hover:bg-white', 'hover:text-[#080808]', 'transition-colors',
@@ -33,62 +42,21 @@ function renderYearCells(calendarDate: Date, selectedDate: Date, setSelectedDate
         'text-white': isSameYear,
         'bg-[#00a3ff]': isSameYear
       })
-      return <td
-        key={i}
-        className={className}
-        onClick={() => setSelectedDate(setYear(selectedDate, d.getFullYear()))}
-      >{d.getFullYear()}</td>;
+      const handleClick = () => {
+        const year = d.getFullYear()
+        setMode(Mode.DAY_MODE)
+        setSelectedDate(setYear(selectedDate, year))
+        setCalendarDate(setYear(calendarDate, year))
+      }
+      return <div key={i} className={className} onClick={handleClick} >{d.getFullYear()}</div>
     })
   }
-  const renderTrs = () => {
-    return rows.map((row, i) => {
-      return <tr key={'row-' + i}>{renderTds(row)}</tr>;
-    });
-  };
-  const className = classNames('font-["Inter"]', 'w-[320px]')
-  return (
-    <table className={className}>
-      <tbody>{renderTrs()}</tbody>
-    </table>
-  )
+  return <div className="grid grid-cols-4 gap-x-[9px] gap-y-[24px] w-[270px] font-['Inter'] ml-auto mr-auto">{renderYearCells()}</div>
 }
 
-function renderThs() {
-  return weekDays.map(day => <th className="font-normal py-2" key={day}>{day}</th>)
-}
+function renderDayCells(context: Context) {
 
-type WeekRow = {
-  key: number,
-  dates: Array<Date>
-}
-
-function renderTrTds(rows: Array<WeekRow>, calendarDate: Date, selectedDate: Date, setSelectedDate: Function) {
-  const currentMonth = calendarDate.getMonth()
-  const renderWeek = (dates: Array<Date>) => dates.map(d => {
-    const fixedClasses = ['text-center', 'py-[6px]', 'rounded-full',
-      'hover:bg-white', 'hover:text-[#080808]', 'transition-colors',
-      'duration-300', 'cursor-pointer'
-    ]
-    const className = classNames(...fixedClasses, {
-      'text-white': d.getMonth() === currentMonth,
-      'bg-[#00a3ff]': eq(d, selectedDate)
-    })
-    return (
-      <td
-        className={className}
-        key={format(d, 'yyyy-mm-dd')}
-        onClick={() => setSelectedDate(d)}
-      >{d.getDate()}</td>
-    )
-  })
-  return rows.map((row: WeekRow) => {
-    return (
-      <tr key={row.key}>{renderWeek(row.dates)}</tr>
-    )
-  })
-}
-
-function renderDayCells(calendarDate: Date, selectedDate: Date, setSelectedDate: Function) {
+  const { calendarDate, selectedDate, setSelectedDate } = context
 
   const startDateOfMonth = startOfMonth(calendarDate)
   const endDateOfMonth = endOfMonth(calendarDate)
@@ -104,18 +72,34 @@ function renderDayCells(calendarDate: Date, selectedDate: Date, setSelectedDate:
     d = addDays(d, 1)
     dates.push(d)
   }
-  const rows = chunk(dates, 7)
-    .map((dates, i) => ({ dates, key: i }))
+
+  const renderDayLabels = () => {
+    return weekDays.map(day => <div className="w-[36px] text-center" key={day}>{day}</div>)
+  }
+  const renderCells = () => {
+    const currentMonth = calendarDate.getMonth()
+    return dates.map(d => {
+      const fixedClasses = ['text-center', 'py-[6px]', 'rounded-full', 'hover:bg-white',
+        'hover:text-[#080808]', 'transition-colors', 'duration-300', 'cursor-pointer', 'w-[36px]', 'h-[36px]']
+      const className = classNames(...fixedClasses, {
+        'text-white': d.getMonth() === currentMonth,
+        'bg-[#00a3ff]': eq(d, selectedDate)
+      })
+      return (
+        <div
+          className={className}
+          key={format(d, 'yyyy-MM-dd')}
+          onClick={() => setSelectedDate(d)}
+        >{d.getDate()}</div>
+      )
+    })
+  }
 
   return (
-    <table className="text-[#929292] ml-auto mr-auto w-[300px] border-separate border-spacing-x-[6px]">
-      <thead className="text-xs">
-        <tr>{renderThs()}</tr>
-      </thead>
-      <tbody>
-        {renderTrTds(rows, calendarDate, selectedDate, setSelectedDate)}
-      </tbody>
-    </table>
+    <div className="text-[#929292] ml-auto mr-auto border-separate border-spacing-x-[6px] flex flex-col ml-4 mr-4">
+      <div className="text-xs flex justify-between">{renderDayLabels()}</div>
+      <div className="grid grid-cols-7 gap-[6px] mt-[12px]">{renderCells()}</div>
+    </div>
   )
 }
 
@@ -133,8 +117,6 @@ function CalendarMenu({ className = '' }: CalendarMenuProps) {
   const [selectedDate, setSelectedDate] =  useState(new Date())
   const [mode, setMode] = useState(Mode.DAY_MODE)
   const handleBarBtnClick = () => setMode(Mode.YEAR_MODE)
-  const wrapperClass = classNames(className, 'font-["Inter"]', 'w-[320px]')
-  const arrowBtnClass = 'p-4'
   const toPrev = () => {
     mode === Mode.DAY_MODE ?
       setCalendarDate(subMonths(calendarDate, 1)) :
@@ -150,11 +132,20 @@ function CalendarMenu({ className = '' }: CalendarMenuProps) {
       setMode(Mode.DAY_MODE)
     }
   }
+  const wrapperClass = classNames(className, 'font-["Inter"]', 'w-[320px]', 'h-[469px]', 'py-[16px]')
+  const arrowBtnClass = 'w-[48px] h-[48px] flex justify-center items-center'
+  const context = {
+    calendarDate,
+    setCalendarDate,
+    selectedDate,
+    setSelectedDate,
+    setMode
+  }
   return (
     <div className={wrapperClass}>
       <div>Text</div>
       <div className="font-bold text-[32px]">{format(calendarDate, 'MMM, yyyy')}</div>
-      <div className="flex justify-between items-center py-3">
+      <div className="flex justify-between items-center py-3 w-full">
         <button className={arrowBtnClass} onClick={toPrev}>
           <IconChevronLeft />
         </button>
@@ -163,15 +154,13 @@ function CalendarMenu({ className = '' }: CalendarMenuProps) {
           <IconChevronRight />
         </button>
       </div>
-      {(mode === Mode.DAY_MODE) ?
-        renderDayCells(calendarDate, selectedDate, setSelectedDate) :
-        renderYearCells(calendarDate, selectedDate, setSelectedDate)}
+      {(mode === Mode.DAY_MODE) ? renderDayCells(context) : renderYearCells(context)}
       <div className="flex justify-end">
         <button className="px-4 py-4" onClick={cancel}>Cancel</button>
         <button className="px-10 py-4">OK</button>
       </div>
     </div>
-  );
+  )
 }
 
 export default CalendarMenu;
