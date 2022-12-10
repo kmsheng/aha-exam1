@@ -14,6 +14,7 @@ specifiers:
   autoprefixer: ^10.4.13
   classnames: ^2.3.2
   date-fns: ^2.29.3
+  eslint-config-google: ^0.14.0
   lodash.chunk: ^4.2.0
   lodash.range: ^3.2.0
   postcss: ^8.4.19
@@ -37,6 +38,7 @@ dependencies:
   '@types/react-dom': 18.0.9
   classnames: 2.3.2
   date-fns: 2.29.3
+  eslint-config-google: 0.14.0_eslint@8.29.0
   lodash.chunk: 4.2.0
   lodash.range: 3.2.0
   react: 18.2.0
@@ -4513,6 +4515,15 @@ packages:
       optionator: 0.8.3
     optionalDependencies:
       source-map: 0.6.1
+    dev: false
+
+  /eslint-config-google/0.14.0_eslint@8.29.0:
+    resolution: {integrity: sha512-WsbX4WbjuMvTdeVL6+J3rK1RGhCTqjsFjX7UMSMgZiyxxaNLkoJENbrGExzERFeoTpGw3F3FypTiWAP9ZXzkEw==}
+    engines: {node: '>=0.10.0'}
+    peerDependencies:
+      eslint: '>=5.16.0'
+    dependencies:
+      eslint: 8.29.0
     dev: false
 
   /eslint-config-react-app/7.0.1_rct45rwth7hl2rq22z2i2pt4iu:
