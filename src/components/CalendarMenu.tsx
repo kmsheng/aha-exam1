@@ -9,8 +9,6 @@ import IconChevronRight from '@/icons/IconChevronRight'
 
 enum Mode { DAY_MODE, YEAR_MODE }
 
-const weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
-
 const eq = (d1: Date, d2: Date) => {
   return (d1.getFullYear() === d2.getFullYear()) &&
     (d1.getMonth() === d2.getMonth()) &&
@@ -73,24 +71,23 @@ function renderDayCells(context: Context) {
     dates.push(d)
   }
 
+  const weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
   const renderDayLabels = () => {
     return weekDays.map(day => <div className="w-[36px] text-center" key={day}>{day}</div>)
   }
   const renderCells = () => {
-    const currentMonth = calendarDate.getMonth()
+    const calendarMonth = calendarDate.getMonth()
     return dates.map(d => {
       const fixedClasses = ['text-center', 'py-[6px]', 'rounded-full', 'hover:bg-white',
         'hover:text-[#080808]', 'transition-colors', 'duration-300', 'cursor-pointer', 'w-[36px]', 'h-[36px]']
+      const isCurrentMonth = d.getMonth() === calendarMonth
       const className = classNames(...fixedClasses, {
-        'text-white': d.getMonth() === currentMonth,
-        'bg-[#00a3ff]': eq(d, selectedDate)
+        'text-white': isCurrentMonth,
+        'bg-[#00a3ff]': isCurrentMonth && eq(d, selectedDate)
       })
+      const handleClick = () => isCurrentMonth && setSelectedDate(d)
       return (
-        <div
-          className={className}
-          key={format(d, 'yyyy-MM-dd')}
-          onClick={() => setSelectedDate(d)}
-        >{d.getDate()}</div>
+        <div className={className} key={format(d, 'yyyy-MM-dd')} onClick={handleClick} >{d.getDate()}</div>
       )
     })
   }
