@@ -113,35 +113,29 @@ function renderDayCells(context: Context) {
   const dayLabels = weekDays.map((day) => {
     return <div className="w-[36px] text-center" key={day}>{day}</div>;
   });
-  const renderCells = () => {
-    const calendarMonth = calendarDate.getMonth();
-    return dates.map((d) => {
-      const fixedClasses = `text-center py-[6px] rounded-full
-      hover:bg-white hover:text-[#080808] transition-colors
-      duration-300 cursor-pointer w-[36px] h-[36px]`;
-      const isCurrentMonth = d.getMonth() === calendarMonth;
-      const className = classNames(fixedClasses, {
-        'text-white': isCurrentMonth,
-        'bg-[#00a3ff]': isCurrentMonth && eq(d, selectedDate),
-      });
-      const handleClick = () => {
-        if (isCurrentMonth) {
-          setSelectedDate(d);
-        }
-      };
-      return (
-        <div className={className} key={format(d, 'yyyy-MM-dd')}
-          onClick={handleClick} >{d.getDate()}</div>
-      );
+
+  const calendarMonth = calendarDate.getMonth();
+  const cells = dates.map((d) => {
+    const fixedClasses = `text-center py-[6px] rounded-full
+    hover:bg-white hover:text-[#080808] transition-colors
+    duration-300 cursor-pointer w-[36px] h-[36px]`;
+    const isCurrentMonth = d.getMonth() === calendarMonth;
+    const className = classNames(fixedClasses, {
+      'text-white': isCurrentMonth,
+      'bg-[#00a3ff]': isCurrentMonth && eq(d, selectedDate),
     });
-  };
+    const handleClick = () => isCurrentMonth && setSelectedDate(d);
+    return (
+      <div className={className} key={format(d, 'yyyy-MM-dd')}
+        onClick={handleClick} >{d.getDate()}</div>
+    );
+  });
 
   return (
     <div className="text-[#929292] ml-auto mr-auto
       border-separate border-spacing-x-[6px] flex flex-col ml-4 mr-4">
       <div className="text-xs flex justify-between">{dayLabels}</div>
-      <div className="grid grid-cols-7 gap-[6px]
-        mt-[12px]">{renderCells()}</div>
+      <div className="grid grid-cols-7 gap-[6px] mt-[12px]">{cells}</div>
     </div>
   );
 }
