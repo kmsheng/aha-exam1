@@ -35,32 +35,30 @@ function renderYearCells(context: Context) {
     setSelectedDate, setMode} = context;
   const dates = range(20).map((i) => addYears(calendarDate, i - 1));
   const selectedYear = selectedDate.getFullYear();
-  const renderCells = () => {
-    return dates.map((d, i) => {
-      const fixedClasses = ['text-center', 'py-[1px]',
-        'hover:bg-white', 'hover:text-[#080808]', 'transition-colors',
-        'duration-300', 'cursor-pointer',
-      ];
-      const isSameYear = d.getFullYear() === selectedYear;
-      const className = classNames(...fixedClasses, {
-        'text-white': isSameYear,
-        'bg-[#00a3ff]': isSameYear,
-      });
-      const handleClick = () => {
-        const year = d.getFullYear();
-        setMode(Mode.MONTH_MODE);
-        setSelectedDate(setYear(selectedDate, year));
-        setCalendarDate(setYear(calendarDate, year));
-      };
-      return (
-        <div key={i} className={className}
-          onClick={handleClick} >{d.getFullYear()}</div>
-      );
+  const cells = dates.map((d, i) => {
+    const fixedClasses = ['text-center', 'py-[1px]',
+      'hover:bg-white', 'hover:text-[#080808]', 'transition-colors',
+      'duration-300', 'cursor-pointer',
+    ];
+    const isSameYear = d.getFullYear() === selectedYear;
+    const className = classNames(...fixedClasses, {
+      'text-white': isSameYear,
+      'bg-[#00a3ff]': isSameYear,
     });
-  };
+    const handleClick = () => {
+      const year = d.getFullYear();
+      setMode(Mode.MONTH_MODE);
+      setSelectedDate(setYear(selectedDate, year));
+      setCalendarDate(setYear(calendarDate, year));
+    };
+    return (
+      <div key={i} className={className}
+        onClick={handleClick} >{d.getFullYear()}</div>
+    );
+  });
   return (
     <div className="grid grid-cols-4 gap-x-[9px] gap-y-[24px]
-      w-[270px] font-['Inter'] ml-auto mr-auto">{renderCells()}</div>
+      w-[270px] font-['Inter'] ml-auto mr-auto">{cells}</div>
   );
 }
 
@@ -163,7 +161,7 @@ type Props = {
 function DateMenu({className = '', style, onConfirm, onCancel}: Props) {
   const [calendarDate, setCalendarDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [mode, setMode] = useState(Mode.MONTH_MODE);
+  const [mode, setMode] = useState(Mode.DAY_MODE);
   const handleBarBtnClick = () => setMode(Mode.YEAR_MODE);
   const toPrev = () => {
     mode === Mode.DAY_MODE ?
