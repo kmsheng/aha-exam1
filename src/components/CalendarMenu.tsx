@@ -65,7 +65,7 @@ function renderDayCells(context: Context) {
 
   // sunday ?
   const startDateOnCal = (firstDayOfWeek === 0) ? startDateOfMonth : previousSunday(startDateOfMonth)
-  const endDateOnCal = (lastDayOfWeek === 6) ? endDateOfMonth : addDays(endDateOfMonth, 6 - lastDayOfWeek + 1)
+  const endDateOnCal = (lastDayOfWeek === 6) ? endDateOfMonth : addDays(endDateOfMonth, 7 - (lastDayOfWeek + 1))
   let d = startDateOnCal
   const dates = [d]
   while (! eq(d, endDateOnCal)) {
@@ -132,7 +132,7 @@ function CalendarMenu({ className = '' }: CalendarMenuProps) {
       setMode(Mode.DAY_MODE)
     }
   }
-  const wrapperClass = classNames(className, 'font-["Inter"]', 'w-[320px]', 'h-[469px]', 'py-[16px]')
+  const wrapperClass = classNames(className, 'font-["Inter"] w-[320px] min-h-[469px] py-[16px] flex flex-col')
   const arrowBtnClass = 'w-[48px] h-[48px] flex justify-center items-center'
   const context = {
     calendarDate,
