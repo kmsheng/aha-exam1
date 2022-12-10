@@ -8,7 +8,6 @@ type Props = {
 function DateContainer({className}: Props) {
   const [inputValue, setInputValue] = useState('');
   const onChange = (value: string) => {
-    console.log('eee', value);
     setInputValue(value);
   };
   return (

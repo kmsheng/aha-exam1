@@ -1,3 +1,4 @@
+import React from 'react';
 import Modal from '@/components/Modal';
 import DateMenu from '@/components/DateMenu';
 import {useState, useRef} from 'react';
@@ -15,14 +16,21 @@ function DateInput({className = '', value = '', onChange}: Props) {
 
   const [active, setActive] = useState(false);
   const handleFocus = () => setActive(true);
-  const handleBlur = () => setActive(false);
   const inputEl = useRef(null);
   const style = useFloatingDom(inputEl.current, active);
   const onInputChange =
     (event: React.ChangeEvent<HTMLInputElement>) =>
       onChange(event.target.value);
-  const onDateConfirm = (date: Date) => onChange(format(date, 'MM/dd/yyyy'));
+  const onDateConfirm = (date: Date) => {
+    onChange(format(date, 'MM/dd/yyyy'));
+    setActive(false);
+  };
   const onDateCancel = () => setActive(false);
+  const blockClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+  };
+
+  useBackdrop(inputEl, () => setActive(false));
 
   return (
     <div className={className}>
@@ -36,11 +44,13 @@ function DateInput({className = '', value = '', onChange}: Props) {
         onFocus={handleFocus}
       />
       <Modal>
-        <DateMenu
-          style={style}
-          onConfirm={onDateConfirm}
-          onCancel={onDateCancel}
-        />
+        <div onClick={blockClick}>
+          <DateMenu
+            style={style}
+            onConfirm={onDateConfirm}
+            onCancel={onDateCancel}
+          />
+        </div>
       </Modal>
     </div>
   );

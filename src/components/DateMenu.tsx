@@ -73,7 +73,7 @@ function renderMonthCells(context: Context) {
     const fixedClass = `text-center cursor-pointer
     hover:bg-white hover:text-[#080808] transition-colors
     duration-300 hover:bg-white hover:text-[#080808]
-    transition-colors duration-300`;
+    transition-colors duration-300 my-2`;
     const isSameMonth = i === selectedMonth;
     const className = classNames(fixedClass, {
       'bg-[#00a3ff]': isSameMonth,

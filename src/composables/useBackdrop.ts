@@ -1,9 +1,15 @@
-import {useEffect, useCallback} from 'react';
+import React, {useEffect, useCallback} from 'react';
 
-function useBackdrop() {
+function useBackdrop(ref: React.RefObject<HTMLDivElement>, fn: () => void) {
+  const cb = useCallback((event: MouseEvent) => {
+    if (ref.current && (ref.current === event.target)) {
+      return;
+    }
+    fn();
+  }, []);
   useEffect(() => {
-    window.addEventListener('click', event => {
-    })
+    document.addEventListener('click', cb);
+    return () => document.removeEventListener('click', cb);
   }, []);
 }
 
