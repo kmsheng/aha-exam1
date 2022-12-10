@@ -1,14 +1,14 @@
 import React from 'react';
 import PasswordInputContainer from '@/containers/PasswordInputContainer';
-import CalendarMenu from '@/components/CalendarMenu';
+import DateContainer from '@/containers/DateContainer';
 
 function App() {
   return (
-    <div className="App bg-[#181818] text-[#fff]
-      min-h-screen flex justify-center items-center">
+    <div className="App bg-[#181818]
+    text-[#fff] flex justify-center fixed h-screen w-screen p-32">
       <div className="flex">
         <PasswordInputContainer />
-        <CalendarMenu className="ml-20" />
+        <DateContainer className="ml-20" />
       </div>
     </div>
   );

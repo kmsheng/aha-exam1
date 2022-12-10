@@ -1,14 +1,19 @@
+import React from 'react';
 import classNames from 'classnames';
 import range from 'lodash.range';
 import {useState} from 'react';
 import {addDays, addMonths, subMonths, getDay, format,
   startOfMonth, endOfMonth, previousSunday, subYears,
-  addYears, setYear} from 'date-fns';
+  addYears, setYear, setMonth} from 'date-fns';
 import IconChevronLeft from '@/icons/IconChevronLeft';
 import IconChevronRight from '@/icons/IconChevronRight';
-import '@/components/CalendarMenu.css';
+import '@/components/DateMenu.css';
 
-enum Mode { DAY_MODE, YEAR_MODE }
+enum Mode {
+  YEAR_MODE,
+  MONTH_MODE,
+  DAY_MODE,
+}
 
 const eq = (d1: Date, d2: Date) => {
   return (d1.getFullYear() === d2.getFullYear()) &&
@@ -21,7 +26,8 @@ type Context = {
   setCalendarDate: React.Dispatch<React.SetStateAction<Date>>,
   selectedDate: Date,
   setSelectedDate: React.Dispatch<React.SetStateAction<Date>>,
-  setMode: React.Dispatch<React.SetStateAction<Mode>>
+  setMode: React.Dispatch<React.SetStateAction<Mode>>,
+  onConfirm: (date: Date) => void,
 }
 
 function renderYearCells(context: Context) {
@@ -29,7 +35,7 @@ function renderYearCells(context: Context) {
     setSelectedDate, setMode} = context;
   const dates = range(20).map((i) => addYears(calendarDate, i - 1));
   const selectedYear = selectedDate.getFullYear();
-  const renderYearCells = () => {
+  const renderCells = () => {
     return dates.map((d, i) => {
       const fixedClasses = ['text-center', 'py-[1px]',
         'hover:bg-white', 'hover:text-[#080808]', 'transition-colors',
@@ -42,7 +48,7 @@ function renderYearCells(context: Context) {
       });
       const handleClick = () => {
         const year = d.getFullYear();
-        setMode(Mode.DAY_MODE);
+        setMode(Mode.MONTH_MODE);
         setSelectedDate(setYear(selectedDate, year));
         setCalendarDate(setYear(calendarDate, year));
       };
@@ -54,13 +60,41 @@ function renderYearCells(context: Context) {
   };
   return (
     <div className="grid grid-cols-4 gap-x-[9px] gap-y-[24px]
-      w-[270px] font-['Inter'] ml-auto mr-auto">{renderYearCells()}</div>
+      w-[270px] font-['Inter'] ml-auto mr-auto">{renderCells()}</div>
+  );
+}
+
+function renderMonthCells(context: Context) {
+  const {selectedDate, setSelectedDate, calendarDate,
+    setCalendarDate, setMode} = context;
+  const selectedMonth = selectedDate.getMonth();
+  const cells = range(12).map((i) => {
+    const date = new Date(2022, i, 1);
+    const fixedClass = `text-center cursor-pointer
+    hover:bg-white hover:text-[#080808] transition-colors
+    duration-300 hover:bg-white hover:text-[#080808]
+    transition-colors duration-300`;
+    const isSameMonth = i === selectedMonth;
+    const className = classNames(fixedClass, {
+      'bg-[#00a3ff]': isSameMonth,
+      'text-white': isSameMonth,
+    });
+    const handleClick = () => {
+      setSelectedDate(setMonth(selectedDate, i));
+      setCalendarDate(setMonth(calendarDate, i));
+      setMode(Mode.DAY_MODE);
+    };
+    return <div className={className}
+      key={i} onClick={handleClick}>{format(date, 'MMM')}</div>;
+  });
+  return (
+    <div className="grid grid-cols-3 gap-x-[9px] gap-y-[24px]
+      w-[270px] ml-auto mr-auto">{cells}</div>
   );
 }
 
 function renderDayCells(context: Context) {
   const {calendarDate, selectedDate, setSelectedDate} = context;
-
   const startDateOfMonth = startOfMonth(calendarDate);
   const endDateOfMonth = endOfMonth(calendarDate);
   const firstDayOfWeek = getDay(startDateOfMonth);
@@ -77,13 +111,10 @@ function renderDayCells(context: Context) {
     d = addDays(d, 1);
     dates.push(d);
   }
-
   const weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-  const renderDayLabels = () => {
-    return weekDays.map((day) => {
-      return <div className="w-[36px] text-center" key={day}>{day}</div>;
-    });
-  };
+  const dayLabels = weekDays.map((day) => {
+    return <div className="w-[36px] text-center" key={day}>{day}</div>;
+  });
   const renderCells = () => {
     const calendarMonth = calendarDate.getMonth();
     return dates.map((d) => {
@@ -95,7 +126,11 @@ function renderDayCells(context: Context) {
         'text-white': isCurrentMonth,
         'bg-[#00a3ff]': isCurrentMonth && eq(d, selectedDate),
       });
-      const handleClick = () => isCurrentMonth && setSelectedDate(d);
+      const handleClick = () => {
+        if (isCurrentMonth) {
+          setSelectedDate(d);
+        }
+      };
       return (
         <div className={className} key={format(d, 'yyyy-MM-dd')}
           onClick={handleClick} >{d.getDate()}</div>
@@ -106,7 +141,7 @@ function renderDayCells(context: Context) {
   return (
     <div className="text-[#929292] ml-auto mr-auto
       border-separate border-spacing-x-[6px] flex flex-col ml-4 mr-4">
-      <div className="text-xs flex justify-between">{renderDayLabels()}</div>
+      <div className="text-xs flex justify-between">{dayLabels}</div>
       <div className="grid grid-cols-7 gap-[6px]
         mt-[12px]">{renderCells()}</div>
     </div>
@@ -118,14 +153,17 @@ function renderBarText(calendarDate: Date, mode: Mode) {
   return format(calendarDate, pattern);
 }
 
-type CalendarMenuProps = {
-  className?: string
+type Props = {
+  className?: string;
+  style?: React.CSSProperties;
+  onConfirm: (date: Date) => void;
+  onCancel: () => void;
 }
 
-function CalendarMenu({className = ''}: CalendarMenuProps) {
+function DateMenu({className = '', style, onConfirm, onCancel}: Props) {
   const [calendarDate, setCalendarDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [mode, setMode] = useState(Mode.DAY_MODE);
+  const [mode, setMode] = useState(Mode.MONTH_MODE);
   const handleBarBtnClick = () => setMode(Mode.YEAR_MODE);
   const toPrev = () => {
     mode === Mode.DAY_MODE ?
@@ -139,12 +177,16 @@ function CalendarMenu({className = ''}: CalendarMenuProps) {
   };
   const cancel = () => {
     if (mode === Mode.YEAR_MODE) {
-      setMode(Mode.DAY_MODE);
+      return setMode(Mode.DAY_MODE);
     }
+    if (mode === Mode.MONTH_MODE) {
+      return setMode(Mode.DAY_MODE);
+    }
+    onCancel();
   };
   const wrapperClass = classNames(className,
-      'calendar-menu bg-[#1b1b1b] font-["Inter"] w-[320px]' +
-      ' min-h-[469px] py-[16px] flex flex-col');
+      'date-menu bg-[#1b1b1b] font-["Inter"] w-[320px]' +
+      ' min-h-[469px] py-[16px] flex flex-col text-white');
   const arrowBtnClass = 'w-[48px] h-[48px] flex justify-center items-center';
   const context = {
     calendarDate,
@@ -152,12 +194,23 @@ function CalendarMenu({className = ''}: CalendarMenuProps) {
     selectedDate,
     setSelectedDate,
     setMode,
+    onConfirm,
   };
-  const renderCells = () =>
-    (mode === Mode.DAY_MODE) ? renderDayCells(context) :
-      renderYearCells(context);
+  const renderCells = () => {
+    switch (mode) {
+      case Mode.YEAR_MODE:
+        return renderYearCells(context);
+      case Mode.MONTH_MODE:
+        return renderMonthCells(context);
+      case Mode.DAY_MODE:
+        return renderDayCells(context);
+      default:
+        throw new Error(`Unexpected mode: ${mode}`);
+    }
+  };
+  const onConfirmBtnClick = () => onConfirm(selectedDate);
   return (
-    <div className={wrapperClass}>
+    <div className={wrapperClass} style={style}>
       <div className="px-[24px]">
         <div>Text</div>
         <div className="font-bold text-[32px]">
@@ -178,10 +231,10 @@ function CalendarMenu({className = ''}: CalendarMenuProps) {
       {renderCells()}
       <div className="flex justify-end">
         <button className="px-4 py-4" onClick={cancel}>Cancel</button>
-        <button className="px-10 py-4">OK</button>
+        <button className="px-10 py-4" onClick={onConfirmBtnClick}>OK</button>
       </div>
     </div>
   );
 }
 
-export default CalendarMenu;
+export default DateMenu;

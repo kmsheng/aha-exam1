@@ -27,7 +27,7 @@ interface PasswordHintMenuProps {
 function PasswordHintMenu({className = '', style = {},
   validations}: PasswordHintMenuProps) {
   return (
-    <div className={className + 'password-hint-menu absolute ' +
+    <div className={className + 'password-hint-menu ' +
       'bg-menu rounded-lg py-[8px] w-[335px] text-white'} style={style}>
       {renderItems(ruleItems, validations)}</div>
   );
