@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import PasswordInput from '@/components/PasswordInput';
-import PasswordHintMenu from '@/components/PasswordHintMenu';
 import {getPasswordHints} from '@/consts/password';
 
 function PasswordInputContainer() {
@@ -11,8 +10,8 @@ function PasswordInputContainer() {
   };
   return (
     <div>
-      <PasswordInput value={password} onChange={handleInputChange} />
-      <PasswordHintMenu className="mt-5" validations={validations} />
+      <PasswordInput value={password} validations={validations}
+        onChange={handleInputChange} />
     </div>
   );
 }

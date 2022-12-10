@@ -21,12 +21,15 @@ function renderItems(items: PasswordRuleItem[],
 interface PasswordHintMenuProps {
   className?: string,
   validations: PasswordValidationResult,
+  style?: object
 }
 
-function PasswordHintMenu({className, validations}: PasswordHintMenuProps) {
+function PasswordHintMenu({className = '', style = {},
+  validations}: PasswordHintMenuProps) {
   return (
-    <div className={className + 'password-hint-menu ' +
-      'bg-menu rounded-lg py-[8px]'}>{renderItems(ruleItems, validations)}</div>
+    <div className={className + 'password-hint-menu absolute ' +
+      'bg-menu rounded-lg py-[8px] w-[335px] text-white'} style={style}>
+      {renderItems(ruleItems, validations)}</div>
   );
 }
 
