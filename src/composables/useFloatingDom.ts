@@ -1,27 +1,29 @@
-import {useEffect, useCallback} from 'react';
+import {useState, useEffect, useCallback, CSSProperties} from 'react';
+import isEqual from 'lodash.isequal';
 import px from '@/utils/px';
 
 function useFloatingDom(el: HTMLElement | null, active: boolean) {
-  const style: React.CSSProperties = {display: 'none'};
-  const setPos = (el: HTMLElement) => {
-    const {top, left} = el.getBoundingClientRect();
-    style.top = px(el.offsetHeight + top);
-    style.left = px(left);
-    style.marginTop = '1rem';
-    style.display = 'block';
-    style.position = 'absolute';
+  const [style, setStyle] = useState({display: 'none'} as CSSProperties);
+  const setPos = (el: HTMLElement, active: boolean) => {
+    const nextStyle: CSSProperties = {display: 'none'};
+    if (active) {
+      const {top, left} = el.getBoundingClientRect();
+      nextStyle.top = px(el.offsetHeight + top);
+      nextStyle.left = px(left);
+      nextStyle.marginTop = '1rem';
+      nextStyle.display = 'block';
+      nextStyle.position = 'absolute';
+    }
+    if (! isEqual(style, nextStyle)) {
+      setStyle(nextStyle);
+    }
   };
-  const handleResize = useCallback(() => el && setPos(el), []);
   useEffect(() => {
+    const handleResize = () => el && setPos(el, active);
     window.addEventListener('resize', handleResize, false);
     return () => window.removeEventListener('resize', handleResize, false);
   }, []);
-  if (! el) {
-    return style;
-  }
-  if (active) {
-    setPos(el);
-  }
+  el && setPos(el, active);
   return style;
 }
 
