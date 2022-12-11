@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.02a3e0a6.css",
-    "main.js": "/static/js/main.cb59eef9.js",
-    "static/js/422.ba6b6a5b.chunk.js": "/static/js/422.ba6b6a5b.chunk.js",
-    "static/media/Inter-Bold.ttf": "/static/media/Inter-Bold.88fa7ae373b07b41ecce.ttf",
-    "static/media/Inter-SemiBold.ttf": "/static/media/Inter-SemiBold.4d56bb21f2399db8ad48.ttf",
-    "static/media/Inter-Medium.ttf": "/static/media/Inter-Medium.6dcbc9bed1ec438907ee.ttf",
-    "static/media/Inter-Light.ttf": "/static/media/Inter-Light.eec8664621fec98efb37.ttf",
-    "static/media/Ubuntu-Regular.ttf": "/static/media/Ubuntu-Regular.1cbb1b79a23478cc89ad.ttf",
-    "index.html": "/index.html",
-    "main.02a3e0a6.css.map": "/static/css/main.02a3e0a6.css.map",
-    "main.cb59eef9.js.map": "/static/js/main.cb59eef9.js.map",
-    "422.ba6b6a5b.chunk.js.map": "/static/js/422.ba6b6a5b.chunk.js.map"
+    "main.css": "https://kmsheng.github.io/aha-exam1/static/css/main.6c33d4f2.css",
+    "main.js": "https://kmsheng.github.io/aha-exam1/static/js/main.6b1cb163.js",
+    "static/js/422.ba6b6a5b.chunk.js": "https://kmsheng.github.io/aha-exam1/static/js/422.ba6b6a5b.chunk.js",
+    "static/media/Inter-Bold.ttf": "https://kmsheng.github.io/aha-exam1/static/media/Inter-Bold.88fa7ae373b07b41ecce.ttf",
+    "static/media/Inter-SemiBold.ttf": "https://kmsheng.github.io/aha-exam1/static/media/Inter-SemiBold.4d56bb21f2399db8ad48.ttf",
+    "static/media/Inter-Medium.ttf": "https://kmsheng.github.io/aha-exam1/static/media/Inter-Medium.6dcbc9bed1ec438907ee.ttf",
+    "static/media/Inter-Light.ttf": "https://kmsheng.github.io/aha-exam1/static/media/Inter-Light.eec8664621fec98efb37.ttf",
+    "static/media/Ubuntu-Regular.ttf": "https://kmsheng.github.io/aha-exam1/static/media/Ubuntu-Regular.1cbb1b79a23478cc89ad.ttf",
+    "index.html": "https://kmsheng.github.io/aha-exam1/index.html",
+    "main.6c33d4f2.css.map": "https://kmsheng.github.io/aha-exam1/static/css/main.6c33d4f2.css.map",
+    "main.6b1cb163.js.map": "https://kmsheng.github.io/aha-exam1/static/js/main.6b1cb163.js.map",
+    "422.ba6b6a5b.chunk.js.map": "https://kmsheng.github.io/aha-exam1/static/js/422.ba6b6a5b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.02a3e0a6.css",
-    "static/js/main.cb59eef9.js"
+    "static/css/main.6c33d4f2.css",
+    "static/js/main.6b1cb163.js"
   ]
 }
