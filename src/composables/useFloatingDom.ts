@@ -28,7 +28,7 @@ function useFloatingDom(
   useEffect(() => {
     window.addEventListener('resize', handleResize, false);
     return () => window.removeEventListener('resize', handleResize, false);
-  });
+  }, [ref.current]);
   setPos(ref, active);
   return style;
 }
