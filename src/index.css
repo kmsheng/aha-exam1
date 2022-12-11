@@ -54,6 +54,8 @@
   }
   .bg-menu {
     background: var(--menu-bg-color);
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
   }
 }
 

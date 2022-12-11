@@ -2,7 +2,6 @@ import {ruleItems, PasswordRuleItem,
   PasswordValidationResult} from '@/consts/password';
 import IconSolidCheckmark from '@/icons/IconSolidCheckmark';
 import IconHollowCheckmark from '@/icons/IconHollowCheckmark';
-import './PasswordHintMenu.css';
 
 function renderItems(items: PasswordRuleItem[],
     validations: PasswordValidationResult) {
@@ -27,7 +26,7 @@ interface PasswordHintMenuProps {
 function PasswordHintMenu({className = '', style = {},
   validations}: PasswordHintMenuProps) {
   return (
-    <div className={className + 'password-hint-menu ' +
+    <div className={className +
       'bg-menu rounded-lg py-[8px] w-[335px] text-white'} style={style}>
       {renderItems(ruleItems, validations)}</div>
   );

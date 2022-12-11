@@ -7,7 +7,6 @@ import {addDays, addMonths, subMonths, getDay, format,
   addYears, setYear, setMonth} from 'date-fns';
 import IconChevronLeft from '@/icons/IconChevronLeft';
 import IconChevronRight from '@/icons/IconChevronRight';
-import '@/components/DateMenu.css';
 
 enum Mode {
   YEAR_MODE,
@@ -177,7 +176,7 @@ function DateMenu({className = '', style, onConfirm, onCancel}: Props) {
     onCancel();
   };
   const wrapperClass = classNames(className,
-      'date-menu bg-[#1b1b1b] font-["Inter"] w-[320px]' +
+      'bg-menu bg-[#1b1b1b] font-["Inter"] w-[320px]' +
       ' min-h-[469px] py-[16px] flex flex-col text-white');
   const arrowBtnClass = 'w-[48px] h-[48px] flex justify-center items-center';
   const context = {
