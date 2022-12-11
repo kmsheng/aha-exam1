@@ -18,7 +18,7 @@ function useFloatingDom(
       nextStyle.left = px(left);
       nextStyle.marginTop = '1rem';
       nextStyle.display = 'block';
-      nextStyle.position = 'absolute';
+      nextStyle.position = 'fixed';
     }
     if (! isEqual(style, nextStyle)) {
       setStyle(nextStyle);
