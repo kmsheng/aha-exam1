@@ -7,21 +7,25 @@ type Props = {
 
 class Modal extends React.Component<Props> {
 
-  modalRoot: HTMLElement;
+  modalRoot: HTMLElement | null;
   el: HTMLElement;
 
   constructor(props: Props) {
     super(props);
-    this.modalRoot = document.getElementById('modal-root')!;
+    this.modalRoot = document.getElementById('modal-root');
     this.el = document.createElement('div');
   }
 
   componentDidMount() {
-    this.modalRoot.appendChild(this.el);
+    if (this.modalRoot) {
+      this.modalRoot.appendChild(this.el);
+    }
   }
 
   componentWillUnmount() {
-    this.modalRoot.removeChild(this.el);
+    if (this.modalRoot) {
+      this.modalRoot.removeChild(this.el);
+    }
   }
 
   render() {

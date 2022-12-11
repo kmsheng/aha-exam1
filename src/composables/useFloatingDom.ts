@@ -1,5 +1,4 @@
-import {useState, useEffect, useCallback,
-  CSSProperties, MutableRefObject} from 'react';
+import {useState, useEffect, CSSProperties, MutableRefObject} from 'react';
 import isEqual from 'lodash.isequal';
 import px from '@/utils/px';
 
