@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "https://kmsheng.github.io/aha-exam1/static/css/main.50f56b6f.css",
-    "main.js": "https://kmsheng.github.io/aha-exam1/static/js/main.6b1cb163.js",
+    "main.js": "https://kmsheng.github.io/aha-exam1/static/js/main.c5dc1015.js",
     "static/js/422.ba6b6a5b.chunk.js": "https://kmsheng.github.io/aha-exam1/static/js/422.ba6b6a5b.chunk.js",
     "static/media/Inter-Bold.ttf": "https://kmsheng.github.io/aha-exam1/static/media/Inter-Bold.88fa7ae373b07b41ecce.ttf",
     "static/media/Inter-SemiBold.ttf": "https://kmsheng.github.io/aha-exam1/static/media/Inter-SemiBold.4d56bb21f2399db8ad48.ttf",
@@ -10,11 +10,11 @@
     "static/media/Ubuntu-Regular.ttf": "https://kmsheng.github.io/aha-exam1/static/media/Ubuntu-Regular.1cbb1b79a23478cc89ad.ttf",
     "index.html": "https://kmsheng.github.io/aha-exam1/index.html",
     "main.50f56b6f.css.map": "https://kmsheng.github.io/aha-exam1/static/css/main.50f56b6f.css.map",
-    "main.6b1cb163.js.map": "https://kmsheng.github.io/aha-exam1/static/js/main.6b1cb163.js.map",
+    "main.c5dc1015.js.map": "https://kmsheng.github.io/aha-exam1/static/js/main.c5dc1015.js.map",
     "422.ba6b6a5b.chunk.js.map": "https://kmsheng.github.io/aha-exam1/static/js/422.ba6b6a5b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.50f56b6f.css",
-    "static/js/main.6b1cb163.js"
+    "static/js/main.c5dc1015.js"
   ]
 }
