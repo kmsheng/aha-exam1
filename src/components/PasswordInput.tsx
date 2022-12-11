@@ -17,7 +17,7 @@ function PasswordInput({value, validations, onChange}: PasswordInputProps) {
   const handleFocus = () => setActive(true);
   const handleBlur = () => setActive(false);
   const inputEl = useRef(null);
-  const style = useFloatingDom(inputEl.current, active);
+  const style = useFloatingDom(inputEl, active);
 
   return (
     <div className="password-input">

@@ -17,7 +17,7 @@ function DateInput({className = '', value = '', onChange}: Props) {
   const [active, setActive] = useState(false);
   const handleFocus = () => setActive(true);
   const input = useRef(null);
-  const style = useFloatingDom(input.current, active);
+  const style = useFloatingDom(input, active);
   const onInputChange =
     (event: React.ChangeEvent<HTMLInputElement>) =>
       onChange(event.target.value);

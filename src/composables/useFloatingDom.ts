@@ -1,10 +1,17 @@
-import {useState, useEffect, useCallback, CSSProperties} from 'react';
+import {useState, useEffect, useCallback,
+  CSSProperties, MutableRefObject} from 'react';
 import isEqual from 'lodash.isequal';
 import px from '@/utils/px';
 
-function useFloatingDom(el: HTMLElement | null, active: boolean) {
+function useFloatingDom(
+    ref: MutableRefObject<HTMLInputElement | null>, active: boolean) {
   const [style, setStyle] = useState({display: 'none'} as CSSProperties);
-  const setPos = (el: HTMLElement, active: boolean) => {
+  const setPos = (ref: MutableRefObject<HTMLInputElement | null>,
+      active: boolean) => {
+    const el = ref.current;
+    if (el === null) {
+      return;
+    }
     const nextStyle: CSSProperties = {display: 'none'};
     if (active) {
       const {top, left} = el.getBoundingClientRect();
@@ -19,11 +26,11 @@ function useFloatingDom(el: HTMLElement | null, active: boolean) {
     }
   };
   useEffect(() => {
-    const handleResize = () => el && setPos(el, active);
+    const handleResize = () => setPos(ref, active);
     window.addEventListener('resize', handleResize, false);
     return () => window.removeEventListener('resize', handleResize, false);
-  }, []);
-  el && setPos(el, active);
+  });
+  setPos(ref, active);
   return style;
 }
 
