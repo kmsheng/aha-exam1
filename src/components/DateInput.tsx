@@ -16,8 +16,8 @@ function DateInput({className = '', value = '', onChange}: Props) {
 
   const [active, setActive] = useState(false);
   const handleFocus = () => setActive(true);
-  const inputEl = useRef(null);
-  const style = useFloatingDom(inputEl.current, active);
+  const input = useRef(null);
+  const style = useFloatingDom(input.current, active);
   const onInputChange =
     (event: React.ChangeEvent<HTMLInputElement>) =>
       onChange(event.target.value);
@@ -30,12 +30,12 @@ function DateInput({className = '', value = '', onChange}: Props) {
     event.stopPropagation();
   };
 
-  useBackdrop(inputEl, () => setActive(false));
+  useBackdrop(input, () => setActive(false));
 
   return (
     <div className={className}>
       <input
-        ref={inputEl}
+        ref={input}
         type="text"
         className="input"
         placeholder="mm/dd/yyyy"
