@@ -33,7 +33,7 @@ function DateInput({className = '', value = '', onChange}: Props) {
   useBackdrop(input, () => setActive(false));
 
   return (
-    <div className={className}>
+    <div className={className + ' border-label border-label-birth'}>
       <input
         ref={input}
         type="text"

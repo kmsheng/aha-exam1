@@ -20,7 +20,7 @@ function PasswordInput({value, validations, onChange}: PasswordInputProps) {
   const style = useFloatingDom(inputEl, active);
 
   return (
-    <div className="password-input">
+    <div className="border-label border-label-password">
       <input
         ref={inputEl}
         type="password"
